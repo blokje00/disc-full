@@ -1,0 +1,208 @@
+.session-settings {
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  margin-bottom: 20px;
+  overflow: hidden;
+}
+
+.settings-section {
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.settings-section:last-child {
+  border-bottom: none;
+}
+
+.settings-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.settings-header:hover {
+  background-color: #f9f9f9;
+}
+
+.settings-header h3 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #2c2c2c;
+}
+
+.toggle-icon {
+  font-size: 0.8rem;
+  color: #7d9e70;
+}
+
+.settings-content {
+  padding: 15px 20px;
+  background-color: #f9f9f9;
+  border-top: 1px solid #f0f0f0;
+}
+
+/* Duration buttons */
+.duration-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.duration-button {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 25px;
+  background-color: white;
+  color: #2c2c2c;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.duration-button.selected {
+  background-color: #7d9e70;
+  color: white;
+  border-color: #7d9e70;
+}
+
+.duration-button:hover:not(.selected) {
+  background-color: #f0f0f0;
+}
+
+/* Coaching type buttons */
+.coaching-type-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.coaching-type-button {
+  flex: 1;
+  min-width: 100px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 25px;
+  background-color: white;
+  color: #2c2c2c;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.coaching-type-button.selected {
+  background-color: #7d9e70;
+  color: white;
+  border-color: #7d9e70;
+}
+
+.coaching-type-button:hover:not(.selected) {
+  background-color: #f0f0f0;
+}
+
+.coaching-type-description {
+  font-size: 0.85rem;
+  color: #666;
+  margin-top: 10px;
+}
+
+/* DISC type buttons */
+.disc-type-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.disc-type-button {
+  flex: 1;
+  min-width: 120px;
+  padding: 10px;
+  border-radius: 25px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.disc-type-description {
+  font-size: 0.85rem;
+  color: #666;
+  margin-top: 10px;
+}
+
+/* Music type buttons */
+.music-type-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.music-type-button {
+  flex: 1;
+  min-width: 100px;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 25px;
+  background-color: white;
+  color: #2c2c2c;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.music-type-button.selected {
+  background-color: #7d9e70;
+  color: white;
+  border-color: #7d9e70;
+}
+
+.music-type-button:hover:not(.selected) {
+  background-color: #f0f0f0;
+}
+
+.music-type-description {
+  font-size: 0.85rem;
+  color: #666;
+  margin-top: 10px;
+  margin-bottom: 15px;
+}
+
+.music-toggle-button {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #7d9e70;
+  border-radius: 25px;
+  background-color: transparent;
+  color: #7d9e70;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.music-toggle-button.playing {
+  background-color: #7d9e70;
+  color: white;
+}
+
+.music-toggle-button:hover {
+  background-color: rgba(125, 158, 112, 0.1);
+}
+
+.music-toggle-button.playing:hover {
+  background-color: #6a8a5e;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .duration-buttons,
+  .coaching-type-buttons,
+  .disc-type-buttons,
+  .music-type-buttons {
+    flex-direction: column;
+  }
+}

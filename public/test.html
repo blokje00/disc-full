@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Pagina</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f1e8;
+            color: #2c2c2c;
+        }
+        h1 {
+            color: #7d9e70;
+        }
+        button {
+            background-color: #7d9e70;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+        }
+        #response {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: white;
+            border-radius: 10px;
+            min-height: 100px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Cogito:3b Test</h1>
+    <p>Deze pagina test de verbinding met Ollama en het Cogito:3b model.</p>
+    
+    <button id="testButton">Test Cogito:3b</button>
+    
+    <div id="response">
+        <p>Hier verschijnt het antwoord van Cogito:3b...</p>
+    </div>
+    
+    <script>
+        document.getElementById('testButton').addEventListener('click', async () => {
+            const responseDiv = document.getElementById('response');
+            responseDiv.innerHTML = '<p>Bezig met verbinden met Ollama...</p>';
+            
+            try {
+                const response = await fetch('http://localhost:11434/api/generate', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        model: 'cogito:3b',
+                        prompt: 'Geef me een korte mindfulness oefening in 3 zinnen.',
+                        stream: false,
+                    }),
+                });
+                
+                if (!response.ok) {
+                    throw new Error(`Ollama API error: ${response.status} ${response.statusText}`);
+                }
+                
+                const data = await response.json();
+                responseDiv.innerHTML = `<p><strong>Cogito:3b antwoord:</strong></p><p>${data.response}</p>`;
+            } catch (error) {
+                responseDiv.innerHTML = `<p>Error: ${error.message}</p>`;
+                console.error('Error testing Cogito:3b:', error);
+            }
+        });
+    </script>
+</body>
+</html>

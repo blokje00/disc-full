@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text-to-Speech Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f1e8;
+            color: #2c2c2c;
+        }
+        h1 {
+            color: #7d9e70;
+        }
+        textarea {
+            width: 100%;
+            height: 150px;
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            border: 1px solid #ddd;
+        }
+        button {
+            background-color: #7d9e70;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        .controls {
+            margin-top: 20px;
+        }
+        select, input {
+            padding: 8px;
+            margin-right: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+        .status {
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #f9f9f9;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Text-to-Speech Test</h1>
+    
+    <textarea id="textToSpeak">Dit is een test van de text-to-speech functionaliteit. Als je dit kunt horen, werkt de functie correct.</textarea>
+    
+    <div>
+        <button id="playButton">Afspelen</button>
+        <button id="pauseButton">Pauzeren</button>
+        <button id="resumeButton">Hervatten</button>
+        <button id="stopButton">Stoppen</button>
+    </div>
+    
+    <div class="controls">
+        <label for="voiceSelect">Stem:</label>
+        <select id="voiceSelect"></select>
+        
+        <label for="rateInput">Snelheid:</label>
+        <input type="range" id="rateInput" min="0.5" max="2" step="0.1" value="1">
+        <span id="rateValue">1.0</span>
+        
+        <label for="pitchInput">Toonhoogte:</label>
+        <input type="range" id="pitchInput" min="0.5" max="2" step="0.1" value="1">
+        <span id="pitchValue">1.0</span>
+    </div>
+    
+    <div class="status" id="status">Status: Gereed</div>
+    
+    <script>
+        // Variables
+        let speechSynthesis = window.speechSynthesis;
+        let voices = [];
+        let currentUtterance = null;
+        
+        // DOM Elements
+        const textToSpeak = document.getElementById('textToSpeak');
+        const voiceSelect = document.getElementById('voiceSelect');
+        const rateInput = document.getElementById('rateInput');
+        const rateValue = document.getElementById('rateValue');
+        const pitchInput = document.getElementById('pitchInput');
+        const pitchValue = document.getElementById('pitchValue');
+        const playButton = document.getElementById('playButton');
+        const pauseButton = document.getElementById('pauseButton');
+        const resumeButton = document.getElementById('resumeButton');
+        const stopButton = document.getElementById('stopButton');
+        const status = document.getElementById('status');
+        
+        // Initialize
+        function init() {
+            // Load voices
+            loadVoices();
+            
+            // Set up event listeners
+            speechSynthesis.onvoiceschanged = loadVoices;
+            
+            playButton.addEventListener('click', play);
+            pauseButton.addEventListener('click', pause);
+            resumeButton.addEventListener('click', resume);
+            stopButton.addEventListener('click', stop);
+            
+            rateInput.addEventListener('input', () => {
+                rateValue.textContent = rateInput.value;
+            });
+            
+            pitchInput.addEventListener('input', () => {
+                pitchValue.textContent = pitchInput.value;
+            });
+        }
+        
+        // Load available voices
+        function loadVoices() {
+            voices = speechSynthesis.getVoices();
+            
+            // Filter for Dutch and English voices
+            const filteredVoices = voices.filter(voice => 
+                voice.lang.includes('nl') || voice.lang.includes('en')
+            );
+            
+            // Clear select
+            voiceSelect.innerHTML = '';
+            
+            // Add voices to select
+            filteredVoices.forEach(voice => {
+                const option = document.createElement('option');
+                option.value = voice.name;
+                option.textContent = `${voice.name} (${voice.lang})`;
+                voiceSelect.appendChild(option);
+            });
+            
+            // Select a default voice (prefer Dutch)
+            const dutchVoice = filteredVoices.find(voice => voice.lang.includes('nl'));
+            if (dutchVoice) {
+                voiceSelect.value = dutchVoice.name;
+            } else if (filteredVoices.length > 0) {
+                voiceSelect.value = filteredVoices[0].name;
+            }
+            
+            // Log available voices
+            console.log('Available voices:', voices);
+        }
+        
+        // Play speech
+        function play() {
+            // Cancel any ongoing speech
+            if (speechSynthesis.speaking) {
+                speechSynthesis.cancel();
+            }
+            
+            // Create utterance
+            const utterance = new SpeechSynthesisUtterance(textToSpeak.value);
+            
+            // Set voice
+            const selectedVoice = voices.find(voice => voice.name === voiceSelect.value);
+            if (selectedVoice) {
+                utterance.voice = selectedVoice;
+            }
+            
+            // Set rate and pitch
+            utterance.rate = parseFloat(rateInput.value);
+            utterance.pitch = parseFloat(pitchInput.value);
+            
+            // Set event handlers
+            utterance.onstart = () => {
+                status.textContent = 'Status: Spreekt...';
+                console.log('Speech started');
+            };
+            
+            utterance.onend = () => {
+                status.textContent = 'Status: Voltooid';
+                console.log('Speech ended');
+                currentUtterance = null;
+            };
+            
+            utterance.onerror = (event) => {
+                status.textContent = `Status: Fout - ${event.error}`;
+                console.error('Speech error:', event);
+                currentUtterance = null;
+            };
+            
+            // Speak
+            currentUtterance = utterance;
+            speechSynthesis.speak(utterance);
+            
+            console.log('Speaking with voice:', selectedVoice ? selectedVoice.name : 'default');
+        }
+        
+        // Pause speech
+        function pause() {
+            if (speechSynthesis.speaking) {
+                speechSynthesis.pause();
+                status.textContent = 'Status: Gepauzeerd';
+                console.log('Speech paused');
+            }
+        }
+        
+        // Resume speech
+        function resume() {
+            if (speechSynthesis.paused) {
+                speechSynthesis.resume();
+                status.textContent = 'Status: Hervat';
+                console.log('Speech resumed');
+            }
+        }
+        
+        // Stop speech
+        function stop() {
+            if (speechSynthesis.speaking) {
+                speechSynthesis.cancel();
+                status.textContent = 'Status: Gestopt';
+                console.log('Speech stopped');
+                currentUtterance = null;
+            }
+        }
+        
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>

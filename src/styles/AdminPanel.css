@@ -1,0 +1,161 @@
+.admin-panel {
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  padding: 25px;
+}
+
+.admin-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.admin-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.admin-header h2 {
+  margin: 0;
+  color: #2c2c2c;
+  font-size: 1.5rem;
+}
+
+.create-button {
+  background-color: #7d9e70;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 25px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.reset-button {
+  background-color: #f0f0f0;
+  color: #666;
+  border: 1px solid #ddd;
+  padding: 10px 20px;
+  border-radius: 25px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.reset-button:hover {
+  background-color: #e0e0e0;
+  color: #333;
+}
+
+.create-button:hover {
+  background-color: #6a8a5e;
+}
+
+.personas-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.persona-item {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 20px;
+  border: 1px solid #f0f0f0;
+  border-radius: 10px;
+  transition: all 0.2s;
+}
+
+.persona-item.selected {
+  border-color: #7d9e70;
+  background-color: rgba(125, 158, 112, 0.05);
+}
+
+.persona-info h3 {
+  margin: 0 0 5px 0;
+  color: #2c2c2c;
+  font-size: 1.2rem;
+}
+
+.persona-info p {
+  margin: 0;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.persona-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.select-button,
+.edit-button,
+.delete-button {
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.select-button {
+  background-color: #7d9e70;
+  color: white;
+  border: none;
+}
+
+.select-button:hover:not(:disabled) {
+  background-color: #6a8a5e;
+}
+
+.select-button:disabled {
+  background-color: #7d9e70;
+  opacity: 0.7;
+  cursor: default;
+}
+
+.edit-button {
+  background-color: #f9c74f;
+  color: white;
+  border: none;
+}
+
+.edit-button:hover {
+  background-color: #e5b53e;
+}
+
+.delete-button {
+  background-color: #e63946;
+  color: white;
+  border: none;
+}
+
+.delete-button:hover:not(:disabled) {
+  background-color: #d32836;
+}
+
+.delete-button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+/* Responsive adjustments */
+@media (min-width: 768px) {
+  .persona-item {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .persona-info {
+    flex: 1;
+  }
+
+  .persona-actions {
+    flex-shrink: 0;
+  }
+}

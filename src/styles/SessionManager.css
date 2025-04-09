@@ -1,0 +1,230 @@
+.session-manager {
+  background-color: white;
+  border-radius: 15px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  padding: 25px;
+  max-width: 600px;
+  margin: 0 auto;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.session-manager-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.session-manager-header h2 {
+  margin: 0;
+  color: #2c2c2c;
+  font-size: 1.5rem;
+}
+
+.close-button {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: #666;
+}
+
+.not-authenticated-message {
+  color: #666;
+  text-align: center;
+  padding: 20px 0;
+}
+
+.session-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px 0;
+}
+
+.spinner {
+  width: 30px;
+  height: 30px;
+  border: 3px solid rgba(125, 158, 112, 0.2);
+  border-radius: 50%;
+  border-top-color: #7d9e70;
+  animation: spin 1s ease-in-out infinite;
+  margin-bottom: 10px;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.session-error, 
+.action-error {
+  background-color: #ffebee;
+  color: #e53935;
+  padding: 10px 15px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  font-size: 0.9rem;
+}
+
+.no-sessions {
+  text-align: center;
+  color: #666;
+  padding: 30px 0;
+}
+
+.sessions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.session-item {
+  border: 1px solid #eee;
+  border-radius: 10px;
+  padding: 15px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: box-shadow 0.2s;
+}
+
+.session-item:hover {
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.session-info {
+  flex: 1;
+}
+
+.session-title {
+  margin: 0 0 5px 0;
+  font-size: 1.1rem;
+  color: #2c2c2c;
+}
+
+.session-date {
+  margin: 0 0 8px 0;
+  font-size: 0.8rem;
+  color: #666;
+}
+
+.session-details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}
+
+.session-tag {
+  background-color: #f0f7ed;
+  color: #7d9e70;
+  font-size: 0.8rem;
+  padding: 3px 8px;
+  border-radius: 12px;
+}
+
+.session-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.load-button,
+.delete-button,
+.confirm-yes,
+.confirm-no {
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.load-button {
+  background-color: #7d9e70;
+  color: white;
+  border: none;
+}
+
+.load-button:hover {
+  background-color: #6a8a5e;
+}
+
+.delete-button {
+  background-color: transparent;
+  color: #e53935;
+  border: 1px solid #e53935;
+}
+
+.delete-button:hover {
+  background-color: #ffebee;
+}
+
+.delete-confirm {
+  text-align: center;
+}
+
+.delete-confirm p {
+  margin: 0 0 8px 0;
+  font-size: 0.9rem;
+  color: #e53935;
+}
+
+.confirm-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.confirm-yes {
+  background-color: #e53935;
+  color: white;
+  border: none;
+}
+
+.confirm-yes:hover {
+  background-color: #d32f2f;
+}
+
+.confirm-no {
+  background-color: #f5f5f5;
+  color: #333;
+  border: none;
+}
+
+.confirm-no:hover {
+  background-color: #e0e0e0;
+}
+
+/* Modal styling */
+.session-manager-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  padding: 20px;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .session-manager {
+    padding: 15px;
+    width: 100%;
+  }
+  
+  .session-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .session-actions {
+    margin-top: 15px;
+    align-self: flex-end;
+  }
+}

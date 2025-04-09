@@ -1,0 +1,52 @@
+.coach-form {
+  margin-top: 20px;
+}
+
+.input-container {
+  margin-bottom: 15px;
+}
+
+.coach-form textarea {
+  width: 100%;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 15px;
+  font-size: 1rem;
+  font-family: inherit;
+  resize: vertical;
+  min-height: 100px;
+  transition: border-color 0.2s;
+}
+
+.coach-form textarea:focus {
+  outline: none;
+  border-color: #7d9e70;
+  box-shadow: 0 0 0 2px rgba(125, 158, 112, 0.2);
+}
+
+.coach-form textarea:disabled {
+  background-color: #f9f9f9;
+  cursor: not-allowed;
+}
+
+.submit-button {
+  width: 100%;
+  padding: 15px;
+  border: none;
+  border-radius: 25px;
+  background-color: #7d9e70;
+  color: white;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.submit-button:hover:not(:disabled) {
+  background-color: #6a8a5e;
+}
+
+.submit-button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}

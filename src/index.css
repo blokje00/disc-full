@@ -1,0 +1,142 @@
+/* Import Quicksand font */
+@import url('https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap');
+
+:root {
+  /* Color variables */
+  --primary-color: #7d9e70; /* Moss green */
+  --secondary-color: #9e7070; /* Clay red */
+  --background-color: #f5f1e8; /* Light sand */
+  --text-color: #2c2c2c; /* Dark gray */
+  --light-gray: #f9f9f9;
+  --border-color: #ddd;
+  --error-color: #e63946;
+  --warning-color: #f9c74f;
+  --success-color: #90be6d;
+
+  /* DISC colors */
+  --dominant-color: #E63946; /* Red */
+  --influential-color: #F9C74F; /* Yellow */
+  --steady-color: #90BE6D; /* Green */
+  --conscientious-color: #457B9D; /* Blue */
+
+  /* Typography */
+  --font-family: 'Quicksand', sans-serif;
+
+  /* Spacing */
+  --spacing-xs: 5px;
+  --spacing-sm: 10px;
+  --spacing-md: 15px;
+  --spacing-lg: 20px;
+  --spacing-xl: 30px;
+
+  /* Border radius */
+  --border-radius-sm: 8px;
+  --border-radius-md: 15px;
+  --border-radius-lg: 25px;
+
+  /* Shadows */
+  --shadow-sm: 0 2px 5px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 10px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 6px 20px rgba(0, 0, 0, 0.15);
+
+  font-family: var(--font-family);
+  line-height: 1.5;
+  font-weight: 400;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+a {
+  font-weight: 500;
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 500;
+  line-height: 1.2;
+  margin-top: 0;
+}
+
+h1 {
+  font-size: 2rem;
+}
+
+h2 {
+  font-size: 1.5rem;
+}
+
+h3 {
+  font-size: 1.2rem;
+}
+
+button {
+  border: none;
+  border-radius: var(--border-radius-lg);
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: 500;
+  font-family: var(--font-family);
+  background-color: var(--primary-color);
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+button:hover {
+  background-color: #6a8a5e;
+}
+
+button:active {
+  transform: translateY(1px);
+}
+
+button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(125, 158, 112, 0.3);
+}
+
+button:disabled {
+  background-color: var(--border-color);
+  color: #999;
+  cursor: not-allowed;
+}
+
+input, textarea, select {
+  font-family: var(--font-family);
+  font-size: 1rem;
+}
+
+/* Utility classes */
+.text-center {
+  text-align: center;
+}
+
+.mt-1 { margin-top: var(--spacing-sm); }
+.mt-2 { margin-top: var(--spacing-md); }
+.mt-3 { margin-top: var(--spacing-lg); }
+.mt-4 { margin-top: var(--spacing-xl); }
+
+.mb-1 { margin-bottom: var(--spacing-sm); }
+.mb-2 { margin-bottom: var(--spacing-md); }
+.mb-3 { margin-bottom: var(--spacing-lg); }
+.mb-4 { margin-bottom: var(--spacing-xl); }
