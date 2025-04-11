@@ -2,17 +2,15 @@ import { useState } from 'react';
 import { DURATIONS, COACHING_TYPES, DISC_TYPES, MUSIC_TYPES } from '../services/constants';
 import '../styles/SessionSettings.css';
 
-const SessionSettings = ({ 
-  selectedDuration, 
-  selectedCoachingType, 
-  selectedDiscType, 
+const SessionSettings = ({
+  selectedDuration,
+  selectedCoachingType,
+  selectedDiscType,
   selectedMusic,
-  isMusicPlaying,
-  onDurationChange, 
-  onCoachingTypeChange, 
-  onDiscTypeChange, 
-  onMusicChange,
-  onToggleMusic
+  onDurationChange,
+  onCoachingTypeChange,
+  onDiscTypeChange,
+  onMusicChange
 }) => {
   const [expandedSection, setExpandedSection] = useState(null);
 
@@ -27,14 +25,14 @@ const SessionSettings = ({
   return (
     <div className="session-settings">
       <div className="settings-section">
-        <div 
+        <div
           className={`settings-header ${expandedSection === 'duration' ? 'expanded' : ''}`}
           onClick={() => toggleSection('duration')}
         >
           <h3>Sessieduur: {selectedDuration.label}</h3>
           <span className="toggle-icon">{expandedSection === 'duration' ? '▼' : '▶'}</span>
         </div>
-        
+
         {expandedSection === 'duration' && (
           <div className="settings-content">
             <div className="duration-buttons">
@@ -53,14 +51,14 @@ const SessionSettings = ({
       </div>
 
       <div className="settings-section">
-        <div 
+        <div
           className={`settings-header ${expandedSection === 'coaching' ? 'expanded' : ''}`}
           onClick={() => toggleSection('coaching')}
         >
           <h3>Coaching Type: {selectedCoachingType.label}</h3>
           <span className="toggle-icon">{expandedSection === 'coaching' ? '▼' : '▶'}</span>
         </div>
-        
+
         {expandedSection === 'coaching' && (
           <div className="settings-content">
             <div className="coaching-type-buttons">
@@ -82,14 +80,14 @@ const SessionSettings = ({
       </div>
 
       <div className="settings-section">
-        <div 
+        <div
           className={`settings-header ${expandedSection === 'disc' ? 'expanded' : ''}`}
           onClick={() => toggleSection('disc')}
         >
           <h3>DISC Type: {selectedDiscType.label}</h3>
           <span className="toggle-icon">{expandedSection === 'disc' ? '▼' : '▶'}</span>
         </div>
-        
+
         {expandedSection === 'disc' && (
           <div className="settings-content">
             <div className="disc-type-buttons">
@@ -117,42 +115,7 @@ const SessionSettings = ({
         )}
       </div>
 
-      <div className="settings-section">
-        <div 
-          className={`settings-header ${expandedSection === 'music' ? 'expanded' : ''}`}
-          onClick={() => toggleSection('music')}
-        >
-          <h3>Achtergrondmuziek: {selectedMusic.label}</h3>
-          <span className="toggle-icon">{expandedSection === 'music' ? '▼' : '▶'}</span>
-        </div>
-        
-        {expandedSection === 'music' && (
-          <div className="settings-content">
-            <div className="music-type-buttons">
-              {MUSIC_TYPES.map(musicType => (
-                <button
-                  key={musicType.id}
-                  className={`music-type-button ${selectedMusic.id === musicType.id ? 'selected' : ''}`}
-                  onClick={() => onMusicChange(musicType)}
-                >
-                  {musicType.label}
-                </button>
-              ))}
-            </div>
-            <div className="music-type-description">
-              {selectedMusic.description}
-            </div>
-            {selectedMusic.id !== 'none' && (
-              <button 
-                className={`music-toggle-button ${isMusicPlaying ? 'playing' : ''}`}
-                onClick={onToggleMusic}
-              >
-                {isMusicPlaying ? 'Pause Music' : 'Play Music'}
-              </button>
-            )}
-          </div>
-        )}
-      </div>
+      {/* Music settings section removed */}
     </div>
   );
 };

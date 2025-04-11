@@ -52,27 +52,12 @@ export const DISC_TYPES = [
   }
 ];
 
-// Available background music types
+// Placeholder for music types (functionality removed)
 export const MUSIC_TYPES = [
   {
-    id: 'calm',
-    label: 'Calm Meditation',
-    description: 'Gentle ambient sounds for deep relaxation'
-  },
-  {
-    id: 'ocean',
-    label: 'Ocean Waves',
-    description: 'Soothing ocean waves for peaceful meditation'
-  },
-  {
-    id: 'forest',
-    label: 'Forest Ambience',
-    description: 'Birds and gentle forest sounds'
-  },
-  {
     id: 'none',
-    label: 'No Music',
-    description: 'Practice in silence'
+    label: 'Geen Muziek',
+    description: 'Mediteer in stilte'
   }
 ];
 
@@ -108,5 +93,5 @@ export const DEFAULT_PERSONAS = [
 export const getDefaultDuration = () => DURATIONS[1]; // 10 minutes
 export const getDefaultCoachingType = () => COACHING_TYPES[0]; // Bodyscan
 export const getDefaultDiscType = () => DISC_TYPES[2]; // Steady (Green)
-export const getDefaultMusic = () => MUSIC_TYPES[0]; // Calm Meditation
+export const getDefaultMusic = () => MUSIC_TYPES[0]; // No Music
 export const getDefaultPersona = () => DEFAULT_PERSONAS[2]; // Green Coach (default)

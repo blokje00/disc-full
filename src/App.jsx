@@ -13,7 +13,7 @@ import SessionSettings from './components/SessionSettings';
 import CoachForm from './components/CoachForm';
 import ResponseContainer from './components/ResponseContainer';
 import AdminPanel from './components/AdminPanel';
-import StartAudioPrompt from './components/StartAudioPrompt';
+// StartAudioPrompt removed
 import DiscSelector from './components/DiscSelector';
 import UserMenu from './components/UserMenu';
 import SaveSessionButton from './components/SaveSessionButton';
@@ -21,15 +21,6 @@ import MySessionsButton from './components/MySessionsButton';
 
 // Services
 import { generateResponse } from './services/ollamaService';
-import {
-  initAudioContext,
-  createCalmMeditationSound,
-  createOceanSound,
-  createForestSound,
-  stopAllSounds,
-  startMusicByType,
-  isAudioInitialized
-} from './services/audioService';
 
 // Constants
 import {
@@ -63,8 +54,7 @@ function App() {
   const [selectedCoachingType, setSelectedCoachingType] = useState(getDefaultCoachingType());
   const [selectedDiscType, setSelectedDiscType] = useState(getDefaultDiscType());
   const [selectedMusic, setSelectedMusic] = useState(getDefaultMusic());
-  const [isMusicPlaying, setIsMusicPlaying] = useState(false);
-  const [currentSound, setCurrentSound] = useState(null);
+  // Music state variables removed
 
   // Function to get the appropriate coach based on DISC type
   const getCoachForDiscType = (discType) => {
@@ -157,11 +147,6 @@ function App() {
     setError('');
 
     try {
-      // Start background music if not already playing
-      if (!isMusicPlaying && selectedMusic.id !== 'none') {
-        startBackgroundMusic();
-      }
-
       const response = await generateResponse(
         input,
         selectedPersona,
@@ -179,94 +164,29 @@ function App() {
     }
   };
 
-  // Start background music based on selected music type
-  const startBackgroundMusic = () => {
-    // Initialize audio context if needed
-    initAudioContext();
-
-    // Use the new startMusicByType function
-    const sound = startMusicByType(selectedMusic.id);
-
-    // Update state if sound was created
-    if (sound) {
-      setCurrentSound(sound);
-      setIsMusicPlaying(true);
-    }
-  };
-
-  // Function to handle user interaction and start audio
+  // Simplified function to handle user interaction (no audio needed)
   const handleUserInteraction = () => {
-    // Only initialize if not already initialized
-    if (!isAudioInitialized()) {
-      console.log('Initializing audio from user interaction');
-      initAudioContext();
-
-      // Start music if not set to 'none'
-      if (selectedMusic.id !== 'none') {
-        startBackgroundMusic();
-      }
-
-      // Mark audio as started
-      setAudioStarted(true);
-    }
+    // Mark as started immediately
+    setAudioStarted(true);
   };
 
-  // Handle music toggle
+  // Simplified music toggle function (does nothing)
   const handleToggleMusic = () => {
-    if (isMusicPlaying) {
-      // Stop music
-      if (currentSound) {
-        currentSound.stop();
-        setCurrentSound(null);
-      }
-      setIsMusicPlaying(false);
-    } else {
-      // Start music
-      startBackgroundMusic();
-    }
+    console.log('Music functionality has been removed');
   };
 
-  // Add event listeners for user interaction and start music when component mounts
+  // Simplified useEffect without audio initialization
   useEffect(() => {
-    // Add event listeners to detect user interaction
-    const interactionEvents = ['click', 'touchstart', 'keydown'];
+    // Set audio started to true immediately
+    setAudioStarted(true);
 
-    const handleInteraction = () => {
-      handleUserInteraction();
-
-      // Remove event listeners after first interaction
-      interactionEvents.forEach(event => {
-        document.removeEventListener(event, handleInteraction);
-      });
-    };
-
-    // Add event listeners
-    interactionEvents.forEach(event => {
-      document.addEventListener(event, handleInteraction);
-    });
-
-    // Try to start music automatically (may not work without user interaction)
-    if (selectedMusic.id !== 'none') {
-      startBackgroundMusic();
-    }
-
-    // Clean up when component unmounts
-    return () => {
-      stopAllSounds();
-
-      // Remove event listeners
-      interactionEvents.forEach(event => {
-        document.removeEventListener(event, handleInteraction);
-      });
-    };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // Clean up function (empty)
+    return () => {};
   }, []);
 
   return (
     <div className="app">
-      {!audioStarted && (
-        <StartAudioPrompt onStart={handleUserInteraction} />
-      )}
+      {/* StartAudioPrompt removed */}
       <InstallPrompt />
 
       <header className="app-header">
@@ -338,40 +258,7 @@ function App() {
 
             {/* DISC type settings moved to top of page */}
 
-            {/* Music settings */}
-            <div className="settings-group">
-              <div className="settings-header">Muziek</div>
-              <div className="settings-buttons">
-                {MUSIC_TYPES.map(type => (
-                  <button
-                    key={type.id}
-                    className={`setting-button ${selectedMusic.id === type.id ? 'selected' : ''}`}
-                    onClick={() => {
-                      setSelectedMusic(type);
-
-                      // Initialize audio if needed (user interaction)
-                      handleUserInteraction();
-
-                      // Stop current music
-                      if (currentSound) {
-                        currentSound.stop();
-                        setCurrentSound(null);
-                      }
-                      setIsMusicPlaying(false);
-
-                      // Start new music if not 'none'
-                      if (type.id !== 'none') {
-                        setTimeout(() => startBackgroundMusic(), 100);
-                      }
-                    }}
-                  >
-                    {type.label}
-                  </button>
-                ))}
-
-                {/* Music toggle button removed as music starts automatically */}
-              </div>
-            </div>
+            {/* Music settings removed */}
           </div>
 
           {/* Hidden settings component to maintain functionality */}
@@ -381,12 +268,10 @@ function App() {
               selectedCoachingType={selectedCoachingType}
               selectedDiscType={selectedDiscType}
               selectedMusic={selectedMusic}
-              isMusicPlaying={isMusicPlaying}
               onDurationChange={setSelectedDuration}
               onCoachingTypeChange={setSelectedCoachingType}
               onDiscTypeChange={setSelectedDiscType}
               onMusicChange={setSelectedMusic}
-              onToggleMusic={handleToggleMusic}
             />
           </div>
 
@@ -418,10 +303,7 @@ function App() {
                   if (session.selectedDiscType) setSelectedDiscType(session.selectedDiscType);
                   if (session.selectedMusic) {
                     setSelectedMusic(session.selectedMusic);
-                    // Start de muziek als die niet al speelt
-                    if (!isMusicPlaying && session.selectedMusic.id !== 'none') {
-                      startBackgroundMusic();
-                    }
+                    // No audio functionality needed
                   }
                   if (session.userInput) setUserInput(session.userInput);
                   if (session.coachResponse) setCoachResponse(session.coachResponse);
@@ -437,7 +319,7 @@ function App() {
           />
 
           <footer className="app-footer">
-            <p className="version-info">Mindfulness Coach v1.2.0</p>
+            <p className="version-info">Mindfulness Coach v1.3.0</p>
           </footer>
         </div>
       )}
